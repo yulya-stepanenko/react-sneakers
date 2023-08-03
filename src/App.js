@@ -6,6 +6,7 @@ import Drawer from "./components/Drawer";
 function App() {
   const [items, setItems] = React.useState([]);
   const [cartItems, setCartItems] = React.useState([]);
+  const [searchValue, setSearchValue] = React.useState("");
   const [cartOpened, setCartOpened] = React.useState(false);
 
   React.useEffect(() => {
@@ -22,6 +23,10 @@ function App() {
     setCartItems((prev) => [...prev, obj]);
   };
 
+  const onChangeSearchInput = (event) => {
+    setSearchValue(event.target.value);
+  };
+
   return (
     <div className="wrapper clear">
       {cartOpened && (
@@ -30,23 +35,42 @@ function App() {
       <Header onClickCart={() => setCartOpened(true)} />
       <div className="content p-40">
         <div className="d-flex align-center justify-between mb-40">
-          <h1>Всі кросівки</h1>
+          <h1>
+            {searchValue
+              ? `Пошук за запитом: "${searchValue}"`
+              : "Всі кросівки"}
+          </h1>
           <div className="search-block d-flex">
             <img src="/img/search.svg" alt="search" />
-            <input placeholder="Пошук..." />
+            {searchValue && (
+              <img
+                className="clear cu-p"
+                src="/img/btn-remove.svg"
+                alt="Clear"
+                onClick={() => setSearchValue("")}
+              />
+            )}
+            <input
+              onChange={onChangeSearchInput}
+              value={searchValue}
+              placeholder="Пошук..."
+            />
           </div>
         </div>
 
-        <div className="d-flex flex-wrap justify-around	">
-          {items.map((item) => (
-            <Card
-              title={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              onFavorite={() => console.log("Like")}
-              onPlus={(obj) => onAddToCart(obj)}
-            />
-          ))}
+        <div className="d-flex flex-wrap">
+          {items
+            .filter((item) => item.title.includes(searchValue))
+            .map((item, index) => (
+              <Card
+                key={index}
+                title={item.title}
+                price={item.price}
+                imageUrl={item.imageUrl}
+                onFavorite={() => console.log("Like")}
+                onPlus={(obj) => onAddToCart(obj)}
+              />
+            ))}
         </div>
       </div>
     </div>
