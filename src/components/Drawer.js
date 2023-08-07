@@ -17,7 +17,7 @@ function Drawer({ onClose, items = [], onRemove }) {
             <div className="items flex">
               {items.map((obj) => (
                 <div
-                  key={obj.id}
+                  key={Number(obj.id)}
                   className="cartItem d-flex align-center mb-20"
                 >
                   <div
@@ -37,7 +37,7 @@ function Drawer({ onClose, items = [], onRemove }) {
                 </div>
               ))}
             </div>
-            <div class="cartTotalBlock">
+            <div className="cartTotalBlock">
               <ul className="cartTotalBlock">
                 <li>
                   <span>Всього:</span>
@@ -56,19 +56,19 @@ function Drawer({ onClose, items = [], onRemove }) {
             </div>
           </div>
         ) : (
-          <div class="cartEmpty d-flex align-center justify-center flex-column flex">
+          <div className="cartEmpty d-flex align-center justify-center flex-column flex">
             <img
-              class="mb-20"
+              className="mb-20"
               width="120px"
               height="120px"
               src="/img/empty-cart.jpg"
               alt="Empty"
             />
             <h2>Кошик порожній</h2>
-            <p class="opacity-6">
+            <p className="opacity-6">
               Додайте хоча б одну пару кросівок, щоб зробити замовлення
             </p>
-            <button onClick={onClose} class="greenButton">
+            <button onClick={onClose} className="greenButton">
               <img src="/img/arrow.svg" alt="Arrow" />
               Повернутися назад
             </button>

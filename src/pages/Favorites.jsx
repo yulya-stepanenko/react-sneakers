@@ -15,7 +15,6 @@ function Favorites({ items, onAddToFavorites }) {
             favorited={true}
             onFavorite={onAddToFavorites}
             {...item}
-            // onPlus={(obj) => onAddToCart(obj)}
           />
         ))}
       </div>
