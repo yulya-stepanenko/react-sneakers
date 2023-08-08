@@ -57,6 +57,12 @@ header {
   .greenButton {
     width: 245px;
     margin-top: 20px;
+    position: relative;
+
+    &:disabled {
+      background-color: #bebebe;
+      cursor: default;
+    }
 
     &:hover {
       img {
