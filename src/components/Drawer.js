@@ -2,12 +2,12 @@ import React from "react";
 import axios from "axios";
 
 import Info from "./Info";
-import { AppContext } from "../App";
+import { useCart } from "../hooks/useCart";
 
 const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function Drawer({ onClose, items = [], onRemove }) {
-  const { cartItems, setCartItems } = React.useContext(AppContext);
+  const { cartItems, setCartItems, totalPrice } = useCart();
   const [orderId, setOrderId] = React.useState(null);
   const [isOrderComplete, setIsOrderComplete] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -25,7 +25,9 @@ function Drawer({ onClose, items = [], onRemove }) {
 
       for (let i = 0; i < cartItems.length; i++) {
         const item = cartItems[i];
-        await axios.delete("https://64c7b457a1fe0128fbd52b74.mockapi.io/cart/" + item.id);
+        await axios.delete(
+          "https://64c7b457a1fe0128fbd52b74.mockapi.io/cart/" + item.id
+        );
         await delay(300);
       }
     } catch (error) {
@@ -61,7 +63,7 @@ function Drawer({ onClose, items = [], onRemove }) {
                   ></div>
                   <div className="mr-20 flex">
                     <p className="mb-5">{obj.title}</p>
-                    <b>{obj.price}</b>
+                    <b>{obj.price} грн</b>
                   </div>
                   <img
                     className="removeBtn"
@@ -77,12 +79,12 @@ function Drawer({ onClose, items = [], onRemove }) {
                 <li>
                   <span>Всього:</span>
                   <div></div>
-                  <b>21 498 грн</b>
+                  <b>{totalPrice} грн</b>
                 </li>
                 <li>
                   <span>Податок 5%</span>
                   <div></div>
-                  <b>1074 грн</b>
+                  <b>{(totalPrice * 0.05).toFixed(2)} грн</b>
                 </li>
               </ul>
               <button

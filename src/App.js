@@ -3,11 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import axios from "axios";
 import Header from "./components/Header";
 import Drawer from "./components/Drawer";
+import AppContext from "./context";
 
 import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
-
-export const AppContext = React.createContext({});
 
 function App() {
   const [items, setItems] = React.useState([]);

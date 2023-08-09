@@ -1,7 +1,7 @@
 import React from "react";
 import ContentLoader from "react-content-loader";
 import styles from "./Card.module.scss";
-import { AppContext } from "../../App";
+import AppContext from "../../context";
 
 function Card({
   id,
@@ -11,16 +11,13 @@ function Card({
   onFavorite,
   onPlus,
   favorited = false,
-  // added = false,
   loading = false,
 }) {
   const { isItemAdded } = React.useContext(AppContext);
-  // const [isAdded, setIsAdded] = React.useState(added);
   const [isFavorite, setIsFavorite] = React.useState(favorited);
 
   const onClickPlus = () => {
     onPlus({ id, title, imageUrl, price });
-      // setIsAdded(!isAdded);
   };
 
   const onClickFavorite = () => {
